@@ -67,7 +67,7 @@ class ADP {
 		}
 
 		// Get plugin data.
-		$plugin_data = get_plugin_data( ADP_PATH . '/advanced-popups.php' );
+		$plugin_data = get_plugin_data( ADP_PATH . '/advanced-popups.php', false, false );
 
 		$this->version = $plugin_data['Version'];
 		$this->adp     = 'advanced-popups';
@@ -76,7 +76,6 @@ class ADP {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**

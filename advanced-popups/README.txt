@@ -1,9 +1,9 @@
 === Advanced Popups ===
 Tags: popup, advertising, popups, optin, marketing
 Requires at least: 4.0
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 5.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Contributors: codesupplyco
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,9 @@ Display high-converting newsletter popups, a cookie notice, or a notification wi
 Display high-converting newsletter popups, a cookie notice, or a notification with the light-weight yet feature-rich plugin.
 
 == Changelog ==
+
+= 1.2.1 =
+* Added compatibility with WordPress 6.7
 
 = 1.2.0 =
 * Added compatibility with WordPress 6.6
