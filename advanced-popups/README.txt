@@ -1,7 +1,7 @@
 === Advanced Popups ===
 Tags: popup, advertising, popups, optin, marketing
 Requires at least: 4.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 5.4
 Stable tag: 1.2.2
 Contributors: codesupplyco
