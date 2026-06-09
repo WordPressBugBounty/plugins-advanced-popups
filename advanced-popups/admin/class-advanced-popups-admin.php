@@ -10,6 +10,11 @@
  * @subpackage ADP/admin
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -54,20 +59,20 @@ class ADP_Admin {
 	public function register_post_type() {
 		register_post_type( 'adp-popup', array(
 			'labels'             => array(
-				'name'               => esc_html__( 'Popups', 'coffee-guru' ),
-				'singular_name'      => esc_html__( 'Popup', 'coffee-guru' ),
-				'menu_name'          => esc_html__( 'Popups', 'coffee-guru' ),
-				'name_admin_bar'     => esc_html__( 'Popup', 'coffee-guru' ),
-				'add_new'            => esc_html__( 'Add New', 'coffee-guru' ),
-				'add_new_item'       => esc_html__( 'Add New Popup', 'coffee-guru' ),
-				'new_item'           => esc_html__( 'New Popup', 'coffee-guru' ),
-				'edit_item'          => esc_html__( 'Edit Popup', 'coffee-guru' ),
-				'view_item'          => esc_html__( 'View Popup', 'coffee-guru' ),
-				'all_items'          => esc_html__( 'Popups', 'coffee-guru' ),
-				'search_items'       => esc_html__( 'Search Popups', 'coffee-guru' ),
-				'parent_item_colon'  => esc_html__( 'Parent Popups:', 'coffee-guru' ),
-				'not_found'          => esc_html__( 'No popups found.', 'coffee-guru' ),
-				'not_found_in_trash' => esc_html__( 'No popups found in Trash.', 'coffee-guru' ),
+				'name'               => esc_html__( 'Popups', 'advanced-popups' ),
+				'singular_name'      => esc_html__( 'Popup', 'advanced-popups' ),
+				'menu_name'          => esc_html__( 'Popups', 'advanced-popups' ),
+				'name_admin_bar'     => esc_html__( 'Popup', 'advanced-popups' ),
+				'add_new'            => esc_html__( 'Add New', 'advanced-popups' ),
+				'add_new_item'       => esc_html__( 'Add New Popup', 'advanced-popups' ),
+				'new_item'           => esc_html__( 'New Popup', 'advanced-popups' ),
+				'edit_item'          => esc_html__( 'Edit Popup', 'advanced-popups' ),
+				'view_item'          => esc_html__( 'View Popup', 'advanced-popups' ),
+				'all_items'          => esc_html__( 'Popups', 'advanced-popups' ),
+				'search_items'       => esc_html__( 'Search Popups', 'advanced-popups' ),
+				'parent_item_colon'  => esc_html__( 'Parent Popups:', 'advanced-popups' ),
+				'not_found'          => esc_html__( 'No popups found.', 'advanced-popups' ),
+				'not_found_in_trash' => esc_html__( 'No popups found in Trash.', 'advanced-popups' ),
 			),
 			'public'             => false,
 			'publicly_queryable' => false,
@@ -78,7 +83,6 @@ class ADP_Admin {
 			'has_archive'        => false,
 			'hierarchical'       => false,
 			'menu_position'      => 55,
-			'show_in_menu'       => true,
 			'menu_icon'          => 'dashicons-editor-expand',
 			'supports'           => array( 'title', 'editor', 'author', 'thumbnail' ),
 			'show_in_rest'       => true,
@@ -261,8 +265,8 @@ class ADP_Admin {
 								</div>
 								<div class="adp-metabox-input">
 									<select id="adp_popup_show_to" name="adp_popup_show_to">
-										<option value="both" <?php selected( $popup_show_to, 'both' ); ?>><?php esc_html_e( 'Show to both users and guest visitors' ); ?></option>
-										<option value="guest" <?php selected( $popup_show_to, 'guest' ); ?>><?php esc_html_e( 'Show only to guest visitors' ); ?></option>
+										<option value="both" <?php selected( $popup_show_to, 'both' ); ?>><?php esc_html_e( 'Show to both users and guest visitors', 'advanced-popups' ); ?></option>
+										<option value="guest" <?php selected( $popup_show_to, 'guest' ); ?>><?php esc_html_e( 'Show only to guest visitors', 'advanced-popups' ); ?></option>
 										<option value="user" <?php selected( $popup_show_to, 'user' ); ?>><?php esc_html_e( 'Show only to logged-in users', 'advanced-popups' ); ?></option>
 									</select>
 								</div>
@@ -604,82 +608,82 @@ class ADP_Admin {
 			return;
 		}
 
-		if ( ! isset( $_POST['adp_popup_meta_nonce'] ) || ! wp_verify_nonce( $_POST['adp_popup_meta_nonce'], 'adp_popup_meta_nonce' ) ) { // Input var ok; sanitization ok.
+		if ( ! isset( $_POST['adp_popup_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['adp_popup_meta_nonce'] ) ), 'adp_popup_meta_nonce' ) ) {
 			return;
 		}
 
-		if ( ! isset( $_POST['adp_popup_action'] ) || 1 !== (int) $_POST['adp_popup_action'] ) { // Input var ok; sanitization ok.
+		if ( ! isset( $_POST['adp_popup_action'] ) || 1 !== (int) $_POST['adp_popup_action'] ) {
 			return;
 		}
 
 		if ( isset( $_POST['adp_popup_type'] ) ) {
-			$popup_type = sanitize_text_field( $_POST['adp_popup_type'] ); // Input var ok; sanitization ok.
+			$popup_type = sanitize_text_field( wp_unslash( $_POST['adp_popup_type'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_type', $popup_type );
 		}
 
 		if ( isset( $_POST['adp_popup_location'] ) ) {
-			$popup_location = sanitize_text_field( $_POST['adp_popup_location'] ); // Input var ok; sanitization ok.
+			$popup_location = sanitize_text_field( wp_unslash( $_POST['adp_popup_location'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_location', $popup_location );
 		}
 
 		if ( isset( $_POST['adp_popup_preview_image'] ) ) {
-			$popup_preview_image = sanitize_text_field( $_POST['adp_popup_preview_image'] ); // Input var ok; sanitization ok.
+			$popup_preview_image = sanitize_text_field( wp_unslash( $_POST['adp_popup_preview_image'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_preview_image', $popup_preview_image );
 		}
 
 		if ( isset( $_POST['adp_popup_info_text'] ) ) {
-			$popup_info_text = wp_kses_post( $_POST['adp_popup_info_text'] ); // Input var ok; sanitization ok.
+			$popup_info_text = wp_kses_post( wp_unslash( $_POST['adp_popup_info_text'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_info_text', $popup_info_text );
 		}
 
 		if ( isset( $_POST['adp_popup_info_buton_label'] ) ) {
-			$popup_info_buton_label = sanitize_text_field( $_POST['adp_popup_info_buton_label'] ); // Input var ok; sanitization ok.
+			$popup_info_buton_label = sanitize_text_field( wp_unslash( $_POST['adp_popup_info_buton_label'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_info_buton_label', $popup_info_buton_label );
 		}
 
 		if ( isset( $_POST['adp_popup_info_button_action'] ) ) {
-			$popup_info_button_action = sanitize_text_field( $_POST['adp_popup_info_button_action'] ); // Input var ok; sanitization ok.
+			$popup_info_button_action = sanitize_text_field( wp_unslash( $_POST['adp_popup_info_button_action'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_info_button_action', $popup_info_button_action );
 		}
 
 		if ( isset( $_POST['adp_popup_info_button_link'] ) ) {
-			$popup_info_button_link = sanitize_text_field( $_POST['adp_popup_info_button_link'] ); // Input var ok; sanitization ok.
+			$popup_info_button_link = sanitize_text_field( wp_unslash( $_POST['adp_popup_info_button_link'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_info_button_link', $popup_info_button_link );
 		}
 
 		if ( isset( $_POST['adp_popup_limit_display'] ) ) {
-			$popup_limit_display = (int) sanitize_text_field( $_POST['adp_popup_limit_display'] ); // Input var ok; sanitization ok.
+			$popup_limit_display = (int) sanitize_text_field( wp_unslash( $_POST['adp_popup_limit_display'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_limit_display', $popup_limit_display );
 		}
 
 		if ( isset( $_POST['adp_popup_limit_lifetime'] ) ) {
-			$popup_limit_lifetime = (int) sanitize_text_field( $_POST['adp_popup_limit_lifetime'] ); // Input var ok; sanitization ok.
+			$popup_limit_lifetime = (int) sanitize_text_field( wp_unslash( $_POST['adp_popup_limit_lifetime'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_limit_lifetime', $popup_limit_lifetime );
 		}
 
 		if ( isset( $_POST['adp_popup_show_to'] ) ) {
-			$popup_show_to = sanitize_text_field( $_POST['adp_popup_show_to'] ); // Input var ok; sanitization ok.
+			$popup_show_to = sanitize_text_field( wp_unslash( $_POST['adp_popup_show_to'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_show_to', $popup_show_to );
 		}
 
 		if ( isset( $_POST['adp_popup_rules_mode'] ) ) {
-			$popup_rules_mode = sanitize_text_field( $_POST['adp_popup_rules_mode'] ); // Input var ok; sanitization ok.
+			$popup_rules_mode = sanitize_text_field( wp_unslash( $_POST['adp_popup_rules_mode'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_rules_mode', $popup_rules_mode );
 		}
 
 		if ( isset( $_POST['adp_popup_rules'] ) ) {
-			$popup_rules = map_deep( $_POST['adp_popup_rules'], 'sanitize_text_field' ); // Input var ok; sanitization ok.
+			$popup_rules = map_deep( wp_unslash( $_POST['adp_popup_rules'] ), 'sanitize_text_field' );
 
 			update_post_meta( $post_id, '_adp_popup_rules', $popup_rules );
 		} else {
@@ -687,85 +691,85 @@ class ADP_Admin {
 		}
 
 		if ( isset( $_POST['adp_popup_open_trigger'] ) ) {
-			$popup_open_trigger = sanitize_text_field( $_POST['adp_popup_open_trigger'] ); // Input var ok; sanitization ok.
+			$popup_open_trigger = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_trigger'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_trigger', $popup_open_trigger );
 		}
 
 		if ( isset( $_POST['adp_popup_open_delay_number'] ) ) {
-			$popup_open_delay_number = sanitize_text_field( $_POST['adp_popup_open_delay_number'] ); // Input var ok; sanitization ok.
+			$popup_open_delay_number = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_delay_number'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_delay_number', $popup_open_delay_number );
 		}
 
 		if ( isset( $_POST['adp_popup_open_scroll_position'] ) ) {
-			$popup_open_scroll_position = sanitize_text_field( $_POST['adp_popup_open_scroll_position'] ); // Input var ok; sanitization ok.
+			$popup_open_scroll_position = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_scroll_position'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_scroll_position', $popup_open_scroll_position );
 		}
 
 		if ( isset( $_POST['adp_popup_open_scroll_type'] ) ) {
-			$popup_open_scroll_type = sanitize_text_field( $_POST['adp_popup_open_scroll_type'] ); // Input var ok; sanitization ok.
+			$popup_open_scroll_type = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_scroll_type'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_scroll_type', $popup_open_scroll_type );
 		}
 
 		if ( isset( $_POST['adp_popup_open_manual_selector'] ) ) {
-			$popup_open_manual_selector = sanitize_text_field( $_POST['adp_popup_open_manual_selector'] ); // Input var ok; sanitization ok.
+			$popup_open_manual_selector = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_manual_selector'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_manual_selector', $popup_open_manual_selector );
 		}
 
 		if ( isset( $_POST['adp_popup_close_trigger'] ) ) {
-			$popup_close_trigger = sanitize_text_field( $_POST['adp_popup_close_trigger'] ); // Input var ok; sanitization ok.
+			$popup_close_trigger = sanitize_text_field( wp_unslash( $_POST['adp_popup_close_trigger'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_close_trigger', $popup_close_trigger );
 		}
 
 		if ( isset( $_POST['adp_popup_close_delay_number'] ) ) {
-			$popup_close_delay_number = sanitize_text_field( $_POST['adp_popup_close_delay_number'] ); // Input var ok; sanitization ok.
+			$popup_close_delay_number = sanitize_text_field( wp_unslash( $_POST['adp_popup_close_delay_number'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_close_delay_number', $popup_close_delay_number );
 		}
 
 		if ( isset( $_POST['adp_popup_close_scroll_position'] ) ) {
-			$popup_close_scroll_position = sanitize_text_field( $_POST['adp_popup_close_scroll_position'] ); // Input var ok; sanitization ok.
+			$popup_close_scroll_position = sanitize_text_field( wp_unslash( $_POST['adp_popup_close_scroll_position'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_close_scroll_position', $popup_close_scroll_position );
 		}
 
 		if ( isset( $_POST['adp_popup_close_scroll_type'] ) ) {
-			$popup_close_scroll_type = sanitize_text_field( $_POST['adp_popup_close_scroll_type'] ); // Input var ok; sanitization ok.
+			$popup_close_scroll_type = sanitize_text_field( wp_unslash( $_POST['adp_popup_close_scroll_type'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_close_scroll_type', $popup_close_scroll_type );
 		}
 
 		if ( isset( $_POST['adp_popup_open_animation'] ) ) {
-			$popup_open_animation = sanitize_text_field( $_POST['adp_popup_open_animation'] ); // Input var ok; sanitization ok.
+			$popup_open_animation = sanitize_text_field( wp_unslash( $_POST['adp_popup_open_animation'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_open_animation', $popup_open_animation );
 		}
 
 		if ( isset( $_POST['adp_popup_exit_animation'] ) ) {
-			$popup_exit_animation = sanitize_text_field( $_POST['adp_popup_exit_animation'] ); // Input var ok; sanitization ok.
+			$popup_exit_animation = sanitize_text_field( wp_unslash( $_POST['adp_popup_exit_animation'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_exit_animation', $popup_exit_animation );
 		}
 
 		if ( isset( $_POST['adp_popup_content_box_width'] ) ) {
-			$popup_content_box_width = (int) sanitize_text_field( $_POST['adp_popup_content_box_width'] ); // Input var ok; sanitization ok.
+			$popup_content_box_width = (int) sanitize_text_field( wp_unslash( $_POST['adp_popup_content_box_width'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_content_box_width', $popup_content_box_width );
 		}
 
 		if ( isset( $_POST['adp_popup_notification_box_width'] ) ) {
-			$popup_notification_box_width = (int) sanitize_text_field( $_POST['adp_popup_notification_box_width'] ); // Input var ok; sanitization ok.
+			$popup_notification_box_width = (int) sanitize_text_field( wp_unslash( $_POST['adp_popup_notification_box_width'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_notification_box_width', $popup_notification_box_width );
 		}
 
 		if ( isset( $_POST['adp_popup_notification_bar_width'] ) ) {
-			$popup_notification_bar_width = (int) sanitize_text_field( $_POST['adp_popup_notification_bar_width'] ); // Input var ok; sanitization ok.
+			$popup_notification_bar_width = (int) sanitize_text_field( wp_unslash( $_POST['adp_popup_notification_bar_width'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_notification_bar_width', $popup_notification_bar_width );
 		}
@@ -822,14 +826,17 @@ class ADP_Admin {
 	 */
 	public function ajax_rules_objects() {
 
-		if ( __return_false() ) {
-			check_ajax_referer();
+		// Verify the request nonce and that the current user is allowed to edit popups.
+		check_ajax_referer( 'adp_popup_rules_objects', '_wpnonce' );
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json( array() );
 		}
 
-		$search = isset( $_REQUEST['search'] ) ? sanitize_text_field( $_REQUEST['search'] ) : ''; // Input var ok; sanitization ok.
-		$group  = isset( $_REQUEST['group'] ) ? sanitize_text_field( $_REQUEST['group'] ) : 'post_types'; // Input var ok; sanitization ok.
-		$rule   = isset( $_REQUEST['rule'] ) ? sanitize_text_field( $_REQUEST['rule'] ) : 'none'; // Input var ok; sanitization ok.
-		$page   = isset( $_REQUEST['page'] ) ? (int) sanitize_text_field( $_REQUEST['page'] ) : 1; // Input var ok; sanitization ok.
+		$search = isset( $_REQUEST['search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['search'] ) ) : '';
+		$group  = isset( $_REQUEST['group'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['group'] ) ) : 'post_types';
+		$rule   = isset( $_REQUEST['rule'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['rule'] ) ) : 'none';
+		$page   = isset( $_REQUEST['page'] ) ? (int) sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 1;
 
 		// Data container.
 		$data = array();
@@ -872,7 +879,8 @@ class ADP_Admin {
 		// Get terms.
 		if ( 'taxonomies' === $group ) {
 
-			$terms = get_terms( $object, array(
+			$terms = get_terms( array(
+				'taxonomy'   => $object,
 				'hide_empty' => false,
 			) );
 
@@ -907,8 +915,8 @@ class ADP_Admin {
 		if ( in_array( $page, array( 'post.php', 'post-new.php' ), true ) ) {
 
 			// Select2.
-			wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'css/select2.min.css' );
-			wp_enqueue_script( 'select2', plugin_dir_url( __FILE__ ) . 'js/select2.full.min.js', array( 'jquery' ) );
+			wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'css/select2.min.css', array(), $this->version );
+			wp_enqueue_script( 'select2', plugin_dir_url( __FILE__ ) . 'js/select2.full.min.js', array( 'jquery' ), $this->version, false );
 
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
@@ -918,7 +926,7 @@ class ADP_Admin {
 
 			wp_localize_script( $this->adp, 'adp_popup_data', array(
 				'ajaxurl'                => admin_url( 'admin-ajax.php' ),
-				'nonce'                  => wp_create_nonce(),
+				'nonce'                  => wp_create_nonce( 'adp_popup_rules_objects' ),
 				'label_general'          => esc_html__( 'General', 'advanced-popups' ),
 				'label_post_types'       => esc_html__( 'Posts Types', 'advanced-popups' ),
 				'label_taxonomies'       => esc_html__( 'Taxonomies', 'advanced-popups' ),

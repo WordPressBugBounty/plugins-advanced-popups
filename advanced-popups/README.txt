@@ -1,9 +1,9 @@
 === Advanced Popups ===
 Tags: popup, advertising, popups, optin, marketing
 Requires at least: 4.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Contributors: codesupplyco
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -98,6 +98,12 @@ The plugin is perfect for marketers, content creators, and site owners who want 
 6. Advanced settings for the popup
 
 == Changelog ==
+
+= 1.2.3 =
+* Improved plugin security and hardened request handling.
+* Fixed translation text domains.
+* Resolved a deprecated function call and improved asset versioning.
+* Added compatibility with WordPress 7.0
 
 = 1.2.2 =
 * Added compatibility with WordPress 6.8

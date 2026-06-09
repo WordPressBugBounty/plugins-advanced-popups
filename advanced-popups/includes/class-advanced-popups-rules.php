@@ -9,6 +9,11 @@
  * @subpackage ADP/includes
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Class Rules
  */
@@ -188,8 +193,10 @@ class ADP_Popup_Rules {
 					case 'url':
 						if ( isset( $tools['url'] ) && $tools['url'] ) {
 
+							$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+
 							$object_uri  = ltrim( rtrim( $tools['url'], '/' ), '/' );
-							$current_uri = ltrim( rtrim( $_SERVER['REQUEST_URI'], '/' ), '/' );
+							$current_uri = ltrim( rtrim( $request_uri, '/' ), '/' );
 
 							if ( $object_uri !== $current_uri ) {
 								$check_or = false;

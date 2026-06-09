@@ -6,6 +6,11 @@
  * @subpackage ADP/includes
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Processing path of style.
  *
@@ -69,7 +74,7 @@ function adp_is_popup_visible( $popup_id ) {
 	// Has user seen this popup before?
 	$popup_limit_display = adp_get_post_meta( $popup_id, '_adp_popup_limit_display', true, 1 );
 
-	if ( true === $visible && $popup_limit_display && isset( $_COOKIE[ "adp-popup-{$popup_id}" ] ) && $_COOKIE[ "adp-popup-{$popup_id}" ] >= $popup_limit_display ) {
+	if ( true === $visible && $popup_limit_display && isset( $_COOKIE[ "adp-popup-{$popup_id}" ] ) && (int) $_COOKIE[ "adp-popup-{$popup_id}" ] >= $popup_limit_display ) {
 		$visible = false;
 	}
 

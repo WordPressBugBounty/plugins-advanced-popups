@@ -13,6 +13,11 @@
  * @subpackage ADP/includes
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * The core plugin class.
  *
@@ -152,7 +157,6 @@ class ADP {
 		$this->loader->add_action( 'init', $plugin_admin, 'register_post_type' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'metabox_popup_register' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'metabox_popup_save', 10, 2 );
-		$this->loader->add_action( 'wp_ajax_nopriv_adp_popup_rules_objects', $plugin_admin, 'ajax_rules_objects' );
 		$this->loader->add_action( 'wp_ajax_adp_popup_rules_objects', $plugin_admin, 'ajax_rules_objects' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts' );
 	}
