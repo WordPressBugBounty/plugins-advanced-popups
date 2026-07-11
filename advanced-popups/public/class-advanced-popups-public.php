@@ -219,7 +219,7 @@ class ADP_Public {
 									<?php } ?>
 
 									<?php if ( 'link' === $popup_info_button_action ) { ?>
-										<a class="adp-button adp-popup-button" target="_blank" href="<?php echo esc_attr( $popup_info_button_link ); ?>">
+										<a class="adp-button adp-popup-button" target="_blank" href="<?php echo esc_url( $popup_info_button_link ); ?>">
 											<?php echo wp_kses( $popup_info_buton_label, 'post' ); ?>
 										</a>
 									<?php } ?>

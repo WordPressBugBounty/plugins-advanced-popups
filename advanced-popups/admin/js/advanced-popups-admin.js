@@ -186,11 +186,16 @@
 
 					$( '.block-editor' ).addClass( 'popup-block-easy' );
 
+					// Classic Editor has no .block-editor element, so also toggle on the metabox parent.
+					$this.wrap.parent().addClass( 'popup-block-easy' );
+
 					$( '.editor-post-featured-image' ).parents( '.components-panel__body' ).hide();
 				} else {
 					$( '.popup-field-overlay-close' ).removeClass( 'hidden' );
 
 					$( '.block-editor' ).removeClass( 'popup-block-easy' );
+
+					$this.wrap.parent().removeClass( 'popup-block-easy' );
 
 					$( '.editor-post-featured-image' ).parents( '.components-panel__body' ).show();
 				}

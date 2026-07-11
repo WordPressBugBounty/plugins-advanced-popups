@@ -204,7 +204,10 @@ class ADP_Popup_Rules {
 						}
 						break;
 					case 'is':
-						if ( ! function_exists( $rule ) || ! call_user_func( $rule ) ) {
+						// Only conditional tags offered in the UI may be called.
+						$allowed_conditionals = array( 'is_front_page', 'is_home', 'is_archive', 'is_author', 'is_search', 'is_404' );
+
+						if ( ! in_array( $rule, $allowed_conditionals, true ) || ! call_user_func( $rule ) ) {
 							$check_or = false;
 						}
 						break;

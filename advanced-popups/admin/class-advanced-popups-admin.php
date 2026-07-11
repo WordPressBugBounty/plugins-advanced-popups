@@ -653,7 +653,7 @@ class ADP_Admin {
 		}
 
 		if ( isset( $_POST['adp_popup_info_button_link'] ) ) {
-			$popup_info_button_link = sanitize_text_field( wp_unslash( $_POST['adp_popup_info_button_link'] ) );
+			$popup_info_button_link = esc_url_raw( wp_unslash( $_POST['adp_popup_info_button_link'] ) );
 
 			update_post_meta( $post_id, '_adp_popup_info_button_link', $popup_info_button_link );
 		}

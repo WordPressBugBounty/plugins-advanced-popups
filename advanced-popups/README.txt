@@ -3,7 +3,7 @@ Tags: popup, advertising, popups, optin, marketing
 Requires at least: 4.0
 Tested up to: 7.0
 Requires PHP: 5.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 Contributors: codesupplyco
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -99,6 +99,10 @@ The plugin is perfect for marketers, content creators, and site owners who want 
 
 == Changelog ==
 
+= 1.2.4 =
+* Fixed the Notification Text and button fields not appearing in the Classic Editor for Notification Box and Notification Bar popup types.
+* Fixed a security issue with the notification button link.
+
 = 1.2.3 =
 * Improved plugin security and hardened request handling.
 * Fixed translation text domains.
@@ -160,7 +164,7 @@ The plugin is perfect for marketers, content creators, and site owners who want 
 * Improve thumbnail.
 
 = 1.0.4 =
-* Fixed "Limit display сache lifetime (days)".
+* Fixed "Limit display cache lifetime (days)".
 
 = 1.0.3 =
 * Added css variables to styles.
